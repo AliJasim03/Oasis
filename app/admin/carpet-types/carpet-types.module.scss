@@ -1,0 +1,156 @@
+@import '@/styles/variables.scss';
+
+.carpetTypesPage {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-2xl;
+
+  h1 {
+    margin: 0;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: $spacing-3xl;
+  font-size: $font-size-lg;
+  color: $color-medium-gray;
+}
+
+.filters {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-xl;
+  flex-wrap: wrap;
+
+  button {
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $color-medium-gray;
+    background-color: $color-white;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-base;
+    font-size: $font-size-sm;
+
+    &:hover {
+      background-color: $color-light-gray;
+    }
+
+    &.active {
+      background-color: $color-primary;
+      color: $color-white;
+      border-color: $color-primary;
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: $spacing-xl;
+}
+
+.card {
+  background-color: $color-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  overflow: hidden;
+  transition: all $transition-base;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-2px);
+  }
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: $spacing-lg;
+  border-bottom: 1px solid $color-light-gray;
+
+  h3 {
+    margin: 0 0 $spacing-xs 0;
+    color: $color-primary;
+  }
+}
+
+.arabicName {
+  font-size: $font-size-lg;
+  color: $color-medium-gray;
+  margin: 0;
+  direction: rtl;
+}
+
+.categoryBadge {
+  background-color: $color-secondary;
+  color: $color-primary;
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.cardBody {
+  padding: $spacing-lg;
+}
+
+.descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin-bottom: $spacing-md;
+
+  strong {
+    display: block;
+    margin-bottom: $spacing-xs;
+    color: $color-dark-gray;
+  }
+}
+
+.description {
+  font-size: $font-size-sm;
+  color: $color-medium-gray;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.meta {
+  display: flex;
+  gap: $spacing-lg;
+  font-size: $font-size-sm;
+  color: $color-medium-gray;
+  padding-top: $spacing-md;
+  border-top: 1px solid $color-light-gray;
+
+  strong {
+    color: $color-dark-gray;
+  }
+}
+
+.cardActions {
+  display: flex;
+  gap: $spacing-md;
+  padding: $spacing-lg;
+  border-top: 1px solid $color-light-gray;
+  background-color: $color-light-gray;
+}
+
+.noCarpetTypes {
+  text-align: center;
+  padding: $spacing-3xl;
+  background-color: $color-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+
+  p {
+    color: $color-medium-gray;
+    margin-bottom: $spacing-lg;
+  }
+}

@@ -1,0 +1,90 @@
+@import '@/styles/variables.scss';
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-lg;
+  padding: $spacing-lg;
+  background: linear-gradient(135deg, rgba($color-white, 0.95), rgba($color-cream, 0.8));
+  backdrop-filter: blur(10px);
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  margin-bottom: $spacing-xl;
+  border: 1px solid rgba($color-gold, 0.2);
+  transition: all 0.3s ease;
+  animation: slideInDown 0.6s ease-out 0.4s backwards;
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    border-color: rgba($color-gold, 0.4);
+  }
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{0.5 + ($i * 0.1)}s;
+    }
+  }
+
+  label {
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    color: $color-deep-brown;
+    transition: color 0.3s ease;
+  }
+
+  select {
+    padding: $spacing-sm $spacing-md;
+    border: 2px solid $color-light-gray;
+    border-radius: $border-radius-md;
+    font-size: $font-size-base;
+    background-color: $color-white;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &:hover {
+      border-color: $color-gold;
+      transform: translateY(-2px);
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-burgundy;
+      box-shadow: 0 4px 12px rgba($color-burgundy, 0.2);
+      transform: scale(1.02);
+    }
+  }
+
+  &:hover label {
+    color: $color-burgundy;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

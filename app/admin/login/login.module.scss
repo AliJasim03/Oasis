@@ -1,0 +1,41 @@
+@import '@/styles/variables.scss';
+
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-burgundy 0%, $color-deep-brown 100%);
+  padding: $spacing-lg;
+}
+
+.loginCard {
+  background-color: $color-white;
+  padding: $spacing-3xl;
+  border-radius: $border-radius-xl;
+  box-shadow: $shadow-xl;
+  max-width: 450px;
+  width: 100%;
+
+  h1 {
+    text-align: center;
+    color: $color-burgundy;
+    margin-bottom: $spacing-sm;
+  }
+}
+
+.subtitle {
+  text-align: center;
+  color: $color-medium-gray;
+  margin-bottom: $spacing-2xl;
+  font-size: $font-size-lg;
+}
+
+.errorMessage {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
+  text-align: center;
+}

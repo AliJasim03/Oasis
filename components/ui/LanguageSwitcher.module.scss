@@ -1,0 +1,32 @@
+@import '@/styles/variables.scss';
+
+.languageSwitcher {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+
+  button {
+    background: none;
+    border: none;
+    color: $color-deep-brown;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: color $transition-base;
+    padding: $spacing-xs $spacing-sm;
+
+    &:hover {
+      color: $color-burgundy;
+    }
+
+    &.active {
+      color: $color-burgundy;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+.separator {
+  color: $color-medium-gray;
+  font-size: $font-size-sm;
+}

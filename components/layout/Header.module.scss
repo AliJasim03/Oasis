@@ -1,0 +1,203 @@
+@import '@/styles/variables.scss';
+
+.header {
+  background-color: rgba($color-white, 0.98);
+  backdrop-filter: blur(10px);
+  box-shadow: $shadow-md;
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+  padding: $spacing-md 0;
+  animation: slideDown 0.5s ease-out;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $color-gold, $color-burgundy, $color-gold, transparent);
+    animation: expandWidth 1.5s ease-out 0.3s forwards;
+  }
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xl;
+}
+
+.logo {
+  animation: fadeIn 0.8s ease-out;
+
+  h1 {
+    font-size: $font-size-2xl;
+    margin: 0;
+    background: linear-gradient(135deg, $color-burgundy, $color-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: $breakpoint-md) {
+      font-size: $font-size-xl;
+    }
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xl;
+
+  a {
+    font-weight: $font-weight-medium;
+    position: relative;
+    padding: $spacing-xs 0;
+    transition: color $transition-base;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
+
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.1 + ($i * 0.1)}s;
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, $color-gold, $color-burgundy);
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      color: $color-burgundy;
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background: linear-gradient(135deg, $color-cream, $color-white);
+    flex-direction: column;
+    justify-content: center;
+    gap: $spacing-lg;
+    box-shadow: $shadow-xl;
+    transition: right $transition-slow;
+
+    &.navOpen {
+      right: 0;
+    }
+
+    // RTL Support
+    [dir="rtl"] & {
+      right: auto;
+      left: -100%;
+      transition: left $transition-slow;
+
+      &.navOpen {
+        left: 0;
+      }
+    }
+  }
+}
+
+.menuToggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  padding: $spacing-sm;
+  cursor: pointer;
+  position: relative;
+  z-index: $z-index-fixed;
+
+  span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: linear-gradient(90deg, $color-burgundy, $color-gold);
+    transition: all $transition-base;
+    transform-origin: center;
+  }
+
+  &:hover span {
+    &:nth-child(1) {
+      transform: translateY(-2px);
+    }
+    &:nth-child(3) {
+      transform: translateY(2px);
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    display: flex;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes expandWidth {
+  from {
+    width: 0;
+  }
+  to {
+    width: 80%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

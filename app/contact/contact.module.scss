@@ -1,0 +1,268 @@
+@import '@/styles/variables.scss';
+
+.pageWrapper {
+  position: relative;
+}
+
+.subtitle {
+  font-size: $font-size-lg;
+  color: $color-medium-gray;
+  text-align: center;
+  margin-bottom: $spacing-3xl;
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.contactContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-3xl;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: $breakpoint-lg) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formSection {
+  background-color: $color-white;
+  padding: $spacing-2xl;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  transition: all 0.4s ease;
+  animation: slideInLeft 0.8s ease-out 0.3s backwards;
+
+  &:hover {
+    box-shadow: $shadow-xl;
+    transform: translateY(-5px);
+  }
+
+  h2 {
+    margin-bottom: $spacing-lg;
+    color: $color-burgundy;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, $color-burgundy, $color-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: expandLine 0.8s ease-out 0.5s forwards;
+    }
+  }
+
+  form {
+    .form-group {
+      animation: fadeInUp 0.6s ease-out backwards;
+
+      @for $i from 1 through 5 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{0.5 + ($i * 0.1)}s;
+        }
+      }
+
+      input, textarea, button {
+        transition: all 0.3s ease;
+
+        &:focus {
+          transform: scale(1.02);
+          box-shadow: 0 4px 12px rgba($color-burgundy, 0.2);
+        }
+      }
+    }
+  }
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  animation: slideInRight 0.8s ease-out 0.3s backwards;
+
+  h2 {
+    margin-bottom: $spacing-lg;
+    color: $color-burgundy;
+  }
+}
+
+.infoItem {
+  background: linear-gradient(135deg, $color-white, lighten($color-cream, 5%));
+  padding: $spacing-lg;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  animation: fadeInScale 0.6s ease-out forwards;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{0.6 + ($i * 0.1)}s;
+    }
+  }
+
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateX(10px) scale(1.03);
+    background: linear-gradient(135deg, $color-white, lighten($color-gold, 35%));
+  }
+
+  h3 {
+    font-size: $font-size-lg;
+    color: $color-burgundy;
+    margin-bottom: $spacing-sm;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    &::before {
+      content: '•';
+      color: $color-gold;
+      font-size: $font-size-2xl;
+      animation: pulse 2s ease-in-out infinite;
+    }
+  }
+
+  p {
+    color: $color-dark-gray;
+    margin-bottom: $spacing-xs;
+  }
+}
+
+.whatsappSection {
+  background: linear-gradient(135deg, rgba($color-white, 0.9), rgba($color-cream, 0.8));
+  backdrop-filter: blur(10px);
+  padding: $spacing-xl;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+  animation: fadeInScale 0.8s ease-out 1s backwards;
+
+  &:hover {
+    border-color: $color-gold;
+    box-shadow: $shadow-xl;
+    transform: scale(1.05);
+  }
+
+  h3 {
+    font-size: $font-size-xl;
+    color: $color-burgundy;
+    margin-bottom: $spacing-sm;
+  }
+
+  p {
+    color: $color-dark-gray;
+    margin-bottom: $spacing-md;
+  }
+}
+
+.successMessage {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+  color: #065f46;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
+  border-left: 4px solid #10b981;
+  animation: slideInDown 0.5s ease-out, pulse 2s ease-in-out infinite 1s;
+}
+
+.errorMessage {
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  color: #991b1b;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  margin-bottom: $spacing-lg;
+  border-left: 4px solid #ef4444;
+  animation: shake 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes expandLine {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}

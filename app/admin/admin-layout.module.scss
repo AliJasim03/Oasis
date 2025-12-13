@@ -1,0 +1,103 @@
+@import '@/styles/variables.scss';
+
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: $color-deep-brown;
+  color: $color-cream;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  height: 100vh;
+  left: 0;
+  top: 0;
+
+  @media (max-width: $breakpoint-md) {
+    width: 200px;
+  }
+}
+
+.sidebarHeader {
+  padding: $spacing-xl;
+  border-bottom: 1px solid rgba($color-cream, 0.2);
+
+  h2 {
+    color: $color-gold;
+    margin: 0;
+  }
+}
+
+.nav {
+  flex: 1;
+  padding: $spacing-lg 0;
+
+  a {
+    display: block;
+    padding: $spacing-md $spacing-xl;
+    color: $color-cream;
+    transition: all $transition-base;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      background-color: rgba($color-cream, 0.1);
+      border-left-color: $color-gold;
+    }
+
+    &.active {
+      background-color: rgba($color-gold, 0.2);
+      border-left-color: $color-gold;
+      color: $color-gold;
+      font-weight: $font-weight-bold;
+    }
+  }
+}
+
+.sidebarFooter {
+  padding: $spacing-xl;
+  border-top: 1px solid rgba($color-cream, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  button {
+    opacity: 1 !important;
+    visibility: visible !important;
+    background-color: transparent !important;
+    border: 1px solid $color-cream !important;
+    color: $color-cream !important;
+
+    &:hover {
+      background-color: rgba($color-cream, 0.1) !important;
+      border-color: $color-accent !important;
+      color: $color-accent !important;
+    }
+  }
+}
+
+.viewSite {
+  color: $color-cream;
+  text-align: center;
+  padding: $spacing-sm;
+  font-size: $font-size-sm;
+
+  &:hover {
+    color: $color-gold;
+  }
+}
+
+.mainContent {
+  flex: 1;
+  margin-left: 260px;
+  padding: $spacing-2xl;
+  background-color: $color-light-gray;
+  min-height: 100vh;
+
+  @media (max-width: $breakpoint-md) {
+    margin-left: 200px;
+    padding: $spacing-lg;
+  }
+}

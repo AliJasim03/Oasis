@@ -1,0 +1,29 @@
+{
+  "name": "Oasis Handmade Carpet Centre",
+  "short_name": "Oasis Carpets",
+  "description": "Premium handmade carpets from Persia, Afghanistan, and India. Over 30 years of excellence.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFF8DC",
+  "theme_color": "#8B4513",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["shopping", "lifestyle"],
+  "dir": "auto",
+  "lang": "en",
+  "scope": "/",
+  "screenshots": []
+}

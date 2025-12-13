@@ -1,0 +1,93 @@
+@import '@/styles/variables.scss';
+
+.productsPage {
+  background-color: $color-white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-2xl;
+  box-shadow: $shadow-md;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-xl;
+}
+
+.loading {
+  padding: $spacing-3xl;
+  text-align: center;
+  color: $color-medium-gray;
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background-color: $color-light-gray;
+
+    th {
+      padding: $spacing-md;
+      text-align: left;
+      font-weight: $font-weight-semibold;
+      color: $color-deep-brown;
+      border-bottom: 2px solid $color-medium-gray;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $color-light-gray;
+      transition: background-color $transition-base;
+
+      &:hover {
+        background-color: rgba($color-light-gray, 0.5);
+      }
+    }
+
+    td {
+      padding: $spacing-md;
+      color: $color-dark-gray;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-sm;
+}
+
+.badgeYes {
+  display: inline-block;
+  padding: $spacing-xs $spacing-sm;
+  background-color: #d1fae5;
+  color: #065f46;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+}
+
+.badgeNo {
+  display: inline-block;
+  padding: $spacing-xs $spacing-sm;
+  background-color: $color-light-gray;
+  color: $color-medium-gray;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+}
+
+.noProducts {
+  text-align: center;
+  padding: $spacing-3xl;
+
+  p {
+    color: $color-medium-gray;
+    margin-bottom: $spacing-lg;
+  }
+}

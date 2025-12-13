@@ -1,0 +1,109 @@
+Create a complete Next.js website for Oasis Handmade Carpet Centre, a traditional carpet retailer. The project should have:
+
+## Tech Stack:
+- Next.js 14+ with App Router and TypeScript
+- Supabase for backend (database, storage, auth)
+- SCSS for styling with a warm, elegant carpet store theme
+- PWA configuration for offline capabilities
+- Responsive design with mobile-first approach
+
+## Database Schema (Supabase):
+1. products table:
+   - id, name_en, name_ar, description_en, description_ar
+   - category (Persian/Afghan/Indian/Regional)
+   - material, origin, price, size, sku
+   - featured (boolean), available (boolean)
+   - created_at, updated_at
+
+2. product_images table:
+   - id, product_id, image_url, is_primary, alt_text
+
+3. categories table:
+   - id, name_en, name_ar, slug, description
+
+4. inquiries table:
+   - id, customer_name, email, phone, message, product_id (optional)
+   - created_at, status
+
+## Frontend Pages:
+1. Public Site (/):
+   - Home: Hero section with featured carpets, store highlights, testimonials
+   - Products (/products): Grid view with filters (category, material, origin, price range)
+   - Product Detail (/products/[slug]): Image gallery with zoom, details, WhatsApp inquiry button
+   - About Us (/about): Store history, craftsmanship story, 30+ years legacy
+   - Contact (/contact): Store location with map, contact form, WhatsApp link, phone numbers
+
+2. Admin Dashboard (/admin):
+   - Login page with Supabase Auth (email/password)
+   - Protected routes with middleware
+   - Dashboard home with stats (total products, inquiries, featured items)
+   - Products management (CRUD operations with image upload)
+   - Categories management
+   - Inquiries management (view and respond)
+   - Settings (store info, contact details)
+
+## Key Features:
+- Multi-language support with next-i18n (English/Arabic) with RTL support for Arabic
+- WhatsApp integration: Floating button and product inquiry buttons that open WhatsApp with pre-filled message
+- Advanced product search with filters and sorting
+- Image optimization with next/image and lazy loading
+- SEO optimization with dynamic meta tags
+- PWA with offline product browsing capability
+- Loading skeletons and smooth transitions
+- Breadcrumb navigation
+
+## Design Theme:
+- Color palette: Rich burgundy (#8B4513), gold accents (#D4AF37), warm cream (#FFF8DC), deep brown (#3E2723)
+- Typography: Elegant serif for headings (Playfair Display), clean sans-serif for body (Inter)
+- Traditional patterns as subtle background textures
+- Card-based layout for products with hover effects
+- Luxurious feel with generous spacing
+
+## Project Structure:
+/app
+/(public)
+/page.tsx (home)
+/products
+/about
+/contact
+/admin
+/login
+/dashboard
+/products
+/categories
+/inquiries
+/api
+/components
+/ui (buttons, cards, modals)
+/layout (header, footer, navigation)
+/products (ProductCard, ProductGallery, Filters)
+/lib
+/supabase (client, admin, queries)
+/utils
+/styles
+/globals.scss
+/variables.scss
+/public
+/locales (en, ar translations)
+Implementation Details:
+
+Use Supabase Row Level Security for admin protection
+Implement image upload to Supabase Storage with compression
+Add loading states and error boundaries
+Create reusable components with proper TypeScript types
+Implement virtual scrolling for large product lists
+Add product view tracking for analytics
+Cache API responses with SWR or React Query
+Implement breadcrumb navigation
+Add Open Graph tags for social sharing
+Create XML sitemap for SEO
+Add robots.txt
+Implement 404 and error pages with proper styling
+
+Environment Variables Setup:
+NEXT_PUBLIC_SUPABASE_URL = https://zknxoyyujlsupqsqesfd.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+SUPABASE_SERVICE_KEY (api key): eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InprbnhveXl1amxzdXBxc3Flc2ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI1NTQ0ODYsImV4cCI6MjA3ODEzMDQ4Nn0.EQHRwhkyv6osOBGb8-eV9brK3H4Rua-RtzFZ3MtnNUY
+NEXT_PUBLIC_WHATSAPP_NUMBER (format: 973XXXXXXXX for Bahrain)
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+Please create the full project with all these features, ensuring excellent performance, accessibility (WCAG 2.1), and a production-ready codebase. Include proper error handling, form validation, and a comprehensive README with setup instructions.

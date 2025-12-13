@@ -1,0 +1,164 @@
+@import '@/styles/variables.scss';
+
+.inquiriesPage {
+  h1 {
+    margin-bottom: $spacing-xl;
+  }
+}
+
+.loading {
+  padding: $spacing-3xl;
+  text-align: center;
+  color: $color-medium-gray;
+}
+
+.filters {
+  display: flex;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-xl;
+  flex-wrap: wrap;
+
+  button {
+    padding: $spacing-sm $spacing-lg;
+    background-color: $color-white;
+    border: 1px solid $color-medium-gray;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+      background-color: $color-light-gray;
+    }
+
+    &.active {
+      background-color: $color-burgundy;
+      color: $color-white;
+      border-color: $color-burgundy;
+    }
+  }
+}
+
+.inquiriesList {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.inquiryCard {
+  background-color: $color-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  padding: $spacing-xl;
+}
+
+.inquiryHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-lg;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1px solid $color-light-gray;
+
+  h3 {
+    margin-bottom: $spacing-xs;
+    color: $color-deep-brown;
+  }
+}
+
+.meta {
+  color: $color-medium-gray;
+  font-size: $font-size-sm;
+}
+
+.statusBadge {
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  text-transform: capitalize;
+
+  &.new {
+    background-color: #dbeafe;
+    color: #1e40af;
+  }
+
+  &.contacted {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+
+  &.resolved {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+}
+
+.inquiryBody {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.contactInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-md;
+
+  p {
+    color: $color-dark-gray;
+    margin: 0;
+
+    strong {
+      color: $color-deep-brown;
+    }
+  }
+}
+
+.message {
+  strong {
+    display: block;
+    margin-bottom: $spacing-sm;
+    color: $color-deep-brown;
+  }
+
+  p {
+    color: $color-dark-gray;
+    line-height: 1.6;
+    margin: 0;
+    padding: $spacing-md;
+    background-color: $color-light-gray;
+    border-radius: $border-radius-md;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: $spacing-md;
+  flex-wrap: wrap;
+
+  select {
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $color-medium-gray;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    cursor: pointer;
+    transition: border-color $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $color-burgundy;
+    }
+  }
+}
+
+.noInquiries {
+  background-color: $color-white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  padding: $spacing-3xl;
+  text-align: center;
+
+  p {
+    color: $color-medium-gray;
+  }
+}

@@ -1,0 +1,97 @@
+@import '@/styles/variables.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: $spacing-sm;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: $spacing-md;
+}
+
+.fileInput {
+  padding: $spacing-sm;
+  border: 2px dashed $color-medium-gray;
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  transition: border-color $transition-base;
+
+  &:hover {
+    border-color: $color-primary;
+  }
+}
+
+.helper {
+  font-size: $font-size-sm;
+  color: $color-medium-gray;
+  margin-top: $spacing-xs;
+}
+
+.imagePreviews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: $spacing-md;
+  margin-top: $spacing-md;
+}
+
+.previewItem {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: $border-radius-md;
+  overflow: hidden;
+  border: 2px solid $color-light-gray;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.primaryBadge {
+  position: absolute;
+  top: $spacing-xs;
+  left: $spacing-xs;
+  background-color: $color-primary;
+  color: $color-white;
+  padding: 2px $spacing-sm;
+  border-radius: $border-radius-sm;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+}
+
+.checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  cursor: pointer;
+
+  input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+  }
+
+  span {
+    font-weight: $font-weight-medium;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: $spacing-md;
+  padding-top: $spacing-lg;
+  border-top: 1px solid $color-light-gray;
+}

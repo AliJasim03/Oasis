@@ -1,0 +1,154 @@
+@import '@/styles/variables.scss';
+
+.footer {
+  background: linear-gradient(180deg, $color-deep-brown, darken($color-deep-brown, 5%));
+  color: $color-cream;
+  padding: $spacing-3xl 0 $spacing-lg;
+  margin-top: $spacing-3xl;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, $color-gold, $color-burgundy, $color-gold, transparent);
+  }
+
+  a {
+    color: $color-cream;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: $color-gold;
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      color: $color-gold;
+      transform: translateX(5px);
+
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.footerContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-2xl;
+  margin-bottom: $spacing-2xl;
+}
+
+.footerSection {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.15}s;
+    }
+  }
+
+  h3 {
+    color: $color-gold;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-xl;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, $color-gold, transparent);
+    }
+  }
+
+  h4 {
+    color: $color-gold;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-lg;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(90deg, $color-gold, transparent);
+    }
+  }
+
+  p {
+    line-height: 1.8;
+    color: $color-cream;
+    opacity: 0.9;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: $spacing-sm;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateX(5px);
+      }
+    }
+  }
+}
+
+.footerBottom {
+  padding-top: $spacing-lg;
+  border-top: 1px solid rgba($color-cream, 0.2);
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.8s forwards;
+
+  p {
+    margin: 0;
+    color: $color-cream;
+    opacity: 0.8;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
