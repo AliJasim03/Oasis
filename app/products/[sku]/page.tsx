@@ -1,29 +1,58 @@
-import { notFound } from 'next/navigation'
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
 import Image from 'next/image'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 import { getProductBySlug } from '@/lib/supabase/queries'
-import { formatPrice, getWhatsAppLink } from '@/lib/utils/helpers'
+import { formatPrice } from '@/lib/utils/helpers'
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton'
-import { Button } from '@/components/ui/Button'
 import styles from './product-detail.module.scss'
+import type { Product, ProductImage } from '@/lib/supabase/types'
 
-export default async function ProductDetailPage({
-  params,
-}: {
-  params: { sku: string }
-}) {
-  let product: any
+type ProductWithImages = Product & { product_images: ProductImage[] }
 
-  try {
-    product = await getProductBySlug(params.sku)
-  } catch (error) {
-    notFound()
+export default function ProductDetailPage() {
+  const params = useParams()
+  const { t, locale } = useLanguage()
+  const [product, setProduct] = useState<ProductWithImages | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    loadProduct()
+  }, [params.sku])
+
+  async function loadProduct() {
+    try {
+      const data = await getProductBySlug(params.sku as string)
+      if (!data || !data.available) {
+        // Redirect to 404 if product doesn't exist or is not available
+        window.location.href = '/404'
+        return
+      }
+      setProduct(data as ProductWithImages)
+    } catch (error) {
+      console.error('Error loading product:', error)
+      window.location.href = '/404'
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="container py-3xl">
+        <div className={styles.loading}>{t.products.loading}</div>
+      </div>
+    )
   }
 
   if (!product) {
-    notFound()
+    return null
   }
 
-  const primaryImage = product.product_images?.find((img: any) => img.is_primary) || product.product_images?.[0]
+  const primaryImage = product.product_images?.find(img => img.is_primary) || product.product_images?.[0]
+  const productName = locale === 'ar' ? product.name_ar : product.name_en
   const inquiryMessage = `Hello, I'm interested in the ${product.name_en} (SKU: ${product.sku}). Could you please provide more information?`
 
   return (
@@ -42,12 +71,12 @@ export default async function ProductDetailPage({
               />
             </div>
           ) : (
-            <div className={styles.placeholderImage}>No Image Available</div>
+            <div className={styles.placeholderImage}>{t.products.card.noImage}</div>
           )}
 
           {product.product_images?.length > 1 && (
             <div className={styles.thumbnails}>
-              {product.product_images.map((img: any) => (
+              {product.product_images.map((img) => (
                 <div key={img.id} className={styles.thumbnail}>
                   <Image
                     src={img.image_url}
@@ -65,11 +94,11 @@ export default async function ProductDetailPage({
         <div className={styles.infoSection}>
           <div className={styles.header}>
             <div>
-              <h1>{product.name_en}</h1>
-              <p className={styles.category}>{product.category} Carpet</p>
+              <h1>{productName}</h1>
+              <p className={styles.category}>{product.category} {t.products.detail.carpet}</p>
             </div>
             {product.featured && (
-              <span className={styles.badge}>Featured</span>
+              <span className={styles.badge}>{t.products.card.featured}</span>
             )}
           </div>
 
@@ -79,38 +108,38 @@ export default async function ProductDetailPage({
 
           {!product.available && (
             <div className={styles.soldOut}>
-              <strong>Sold Out</strong>
+              <strong>{t.products.card.soldOut}</strong>
             </div>
           )}
 
           <div className={styles.details}>
             <div className={styles.detailItem}>
-              <strong>Material:</strong>
+              <strong>{t.products.detail.material}:</strong>
               <span>{product.material}</span>
             </div>
             <div className={styles.detailItem}>
-              <strong>Origin:</strong>
+              <strong>{t.products.detail.origin}:</strong>
               <span>{product.origin}</span>
             </div>
             <div className={styles.detailItem}>
-              <strong>Size:</strong>
+              <strong>{t.products.detail.size}:</strong>
               <span>{product.size}</span>
             </div>
             <div className={styles.detailItem}>
-              <strong>SKU:</strong>
+              <strong>{t.products.detail.sku}:</strong>
               <span>{product.sku}</span>
             </div>
           </div>
 
           <div className={styles.description}>
-            <h2>Description</h2>
-            <p>{product.description_en}</p>
+            <h2>{t.products.detail.description}</h2>
+            <p>{locale === 'ar' ? product.description_ar : product.description_en}</p>
           </div>
 
           <div className={styles.actions}>
             <WhatsAppButton message={inquiryMessage} />
             <a href="/products" className="btn btn-outline">
-              Back to Products
+              {t.products.backToProducts}
             </a>
           </div>
         </div>

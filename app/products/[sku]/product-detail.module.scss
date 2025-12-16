@@ -158,3 +158,10 @@
   padding-top: $spacing-lg;
   flex-wrap: wrap;
 }
+
+.loading {
+  text-align: center;
+  padding: $spacing-3xl 0;
+  font-size: $font-size-lg;
+  color: $color-medium-gray;
+}

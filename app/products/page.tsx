@@ -79,7 +79,7 @@ export default function ProductsPage() {
     return (
       <div className="container py-3xl">
         <h1>{t.products.title}</h1>
-        <div className={styles.loading}>Loading products...</div>
+        <div className={styles.loading}>{t.products.loading}</div>
       </div>
     )
   }
@@ -106,7 +106,7 @@ export default function ProductsPage() {
         {filteredProducts.length === 0 ? (
           <ScrollReveal animation="scale">
             <div className={styles.noProducts}>
-              <p>No products found matching your filters.</p>
+              <p>{t.products.noProducts}</p>
             </div>
           </ScrollReveal>
         ) : (

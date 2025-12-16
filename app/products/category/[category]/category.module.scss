@@ -1,0 +1,48 @@
+@import '@/styles/variables.scss';
+
+.pageWrapper {
+  position: relative;
+  min-height: 50vh;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: $font-size-lg;
+  color: $color-medium-gray;
+  margin-bottom: $spacing-xl;
+}
+
+.backLink {
+  margin-bottom: $spacing-xl;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+  }
+}
+
+.productCount {
+  text-align: center;
+  font-size: $font-size-base;
+  color: $color-medium-gray;
+  margin-bottom: $spacing-lg;
+  font-weight: 600;
+}
+
+.loading {
+  text-align: center;
+  padding: $spacing-3xl 0;
+  font-size: $font-size-lg;
+  color: $color-medium-gray;
+}
+
+.noProducts {
+  text-align: center;
+  padding: $spacing-3xl 0;
+
+  p {
+    font-size: $font-size-lg;
+    color: $color-medium-gray;
+  }
+}

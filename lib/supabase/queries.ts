@@ -133,6 +133,36 @@ export async function updateProduct(id: string, product: any) {
 }
 
 export async function deleteProduct(id: string) {
+  // First, get all images associated with this product
+  const { data: images, error: fetchError } = await supabase
+    .from('product_images')
+    .select('image_url')
+    .eq('product_id', id)
+
+  if (fetchError) throw fetchError
+
+  // Delete image files from storage if any exist
+  if (images && images.length > 0) {
+    for (const image of images) {
+      // Extract the file path from the full URL
+      // URL format: https://{project}.supabase.co/storage/v1/object/public/product-images/{productId}/{filename}
+      const urlParts = image.image_url.split('/product-images/')
+      if (urlParts.length === 2) {
+        const filePath = urlParts[1]
+
+        // Delete from storage (errors are non-blocking to ensure product deletion continues)
+        const { error: storageError } = await supabase.storage
+          .from('product-images')
+          .remove([filePath])
+
+        if (storageError) {
+          console.error(`Failed to delete image ${filePath}:`, storageError)
+        }
+      }
+    }
+  }
+
+  // Delete product record (this will cascade delete product_images due to foreign key)
   const { error } = await supabase
     .from('products')
     .delete()
