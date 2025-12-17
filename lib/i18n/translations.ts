@@ -158,6 +158,7 @@ export const translations = {
         size: 'Size',
         sku: 'SKU',
         description: 'Description',
+        unavailableMessage: 'This item is currently out of stock. Contact us to inquire about availability.',
       },
       category: {
         title: 'Product Categories',
@@ -369,6 +370,7 @@ export const translations = {
         size: 'الحجم',
         sku: 'رقم المنتج',
         description: 'الوصف',
+        unavailableMessage: 'هذا المنتج غير متوفر حاليًا. اتصل بنا للاستفسار عن التوفر.',
       },
       category: {
         title: 'فئات المنتجات',

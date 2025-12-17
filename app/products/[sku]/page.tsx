@@ -26,7 +26,7 @@ export default function ProductDetailPage() {
     try {
       const data = await getProductBySlug(params.sku as string)
       if (!data) {
-        // Redirect to 404 if product doesn't exist or is not available
+        // Redirect to 404 if product doesn't exist
         window.location.href = '/404'
         return
       }
@@ -53,14 +53,16 @@ export default function ProductDetailPage() {
 
   const primaryImage = product.product_images?.find(img => img.is_primary) || product.product_images?.[0]
   const productName = locale === 'ar' ? product.name_ar : product.name_en
-  const inquiryMessage = `Hello, I'm interested in the ${product.name_en} (SKU: ${product.sku}). Could you please provide more information?`
+  const inquiryMessage = product.available
+    ? `Hello, I'm interested in the ${product.name_en} (SKU: ${product.sku}). Could you please provide more information?`
+    : `Hello, I noticed the ${product.name_en} (SKU: ${product.sku}) is currently unavailable. When will it be back in stock?`
 
   return (
     <div className="container py-3xl">
       <div className={styles.productDetail}>
         <div className={styles.imageSection}>
           {primaryImage ? (
-            <div className={styles.mainImage}>
+            <div className={`${styles.mainImage} ${!product.available ? styles.unavailableImage : ''}`}>
               <Image
                 src={primaryImage.image_url}
                 alt={primaryImage.alt_text}
@@ -69,6 +71,11 @@ export default function ProductDetailPage() {
                 className={styles.image}
                 priority
               />
+              {!product.available && (
+                <div className={styles.unavailableOverlay}>
+                  <span className={styles.unavailableText}>{t.products.card.soldOut}</span>
+                </div>
+              )}
             </div>
           ) : (
             <div className={styles.placeholderImage}>{t.products.card.noImage}</div>
@@ -108,7 +115,8 @@ export default function ProductDetailPage() {
 
           {!product.available && (
             <div className={styles.soldOut}>
-              <strong>{t.products.card.soldOut}</strong>
+              <strong>⚠️ {t.products.card.soldOut}</strong>
+              <p className={styles.soldOutMessage}>{t.products.detail.unavailableMessage}</p>
             </div>
           )}
 
