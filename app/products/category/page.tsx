@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { useLanguage } from '@/lib/i18n/LanguageContext'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { CarpetPattern } from '@/components/ui/CarpetPattern'
-import { getProducts } from '@/lib/supabase/queries'
+import { getProducts, getCarpetTypes } from '@/lib/supabase/queries'
+import type { CarpetType } from '@/lib/supabase/types'
 import styles from './categories.module.scss'
 
 interface CategoryData {
@@ -16,42 +17,17 @@ interface CategoryData {
   descriptionAr: string
   count: number
   icon: string
+  category: 'Persian' | 'Afghan' | 'Indian' | 'Regional'
 }
 
-const CATEGORIES_INFO = [
-  {
-    name: 'Persian',
-    nameAr: 'فارسي',
-    slug: 'persian',
-    description: 'Exquisite Persian carpets known for their intricate designs and superior craftsmanship',
-    descriptionAr: 'سجاد فارسي رائع معروف بتصاميمه المعقدة وحرفيته الممتازة',
-    icon: '🇮🇷',
-  },
-  {
-    name: 'Afghan',
-    nameAr: 'أفغاني',
-    slug: 'afghan',
-    description: 'Traditional Afghan carpets featuring bold geometric patterns and rich colors',
-    descriptionAr: 'سجاد أفغاني تقليدي يتميز بأنماط هندسية جريئة وألوان غنية',
-    icon: '🇦🇫',
-  },
-  {
-    name: 'Indian',
-    nameAr: 'هندي',
-    slug: 'indian',
-    description: 'Beautiful Indian carpets with vibrant colors and detailed artistry',
-    descriptionAr: 'سجاد هندي جميل بألوان نابضة بالحياة وفن مفصل',
-    icon: '🇮🇳',
-  },
-  {
-    name: 'Regional',
-    nameAr: 'إقليمي',
-    slug: 'regional',
-    description: 'Unique regional carpets showcasing local traditions and techniques',
-    descriptionAr: 'سجاد إقليمي فريد يعرض التقاليد والتقنيات المحلية',
-    icon: '🌍',
-  },
-]
+const CATEGORY_ICONS: Record<string, string> = {
+  persian: '🇮🇷',
+  afghan: '🇦🇫',
+  indian: '🇮🇳',
+  regional: '🌍',
+}
+
+const MAIN_CATEGORIES: Array<'Persian' | 'Afghan' | 'Indian' | 'Regional'> = ['Persian', 'Afghan', 'Indian', 'Regional']
 
 export default function CategoriesPage() {
   const { t, locale } = useLanguage()
@@ -64,21 +40,92 @@ export default function CategoriesPage() {
 
   const loadCategoryCounts = async () => {
     try {
-      const allProducts = await getProducts()
+      // Get all products and carpet types
+      const [allProducts, allCarpetTypes] = await Promise.all([
+        getProducts(),
+        getCarpetTypes()
+      ])
 
-      // Count products per category
-      const categoriesWithCounts = CATEGORIES_INFO.map(cat => {
-        const count = allProducts.filter(p => p.category === cat.name).length
-        return { ...cat, count }
-      })
+      // Group carpet types by category and aggregate descriptions
+      const categoryMap: Record<string, CategoryData> = {}
 
-      setCategories(categoriesWithCounts)
+      // Process each main category
+      const mainCategories = MAIN_CATEGORIES
+
+      for (const category of mainCategories) {
+        const categorySlug = category.toLowerCase()
+        const categoryTypes = allCarpetTypes.filter(ct => ct.category === category)
+        const productCount = allProducts.filter(p => p.category === category).length
+
+        // Combine descriptions from all carpet types in this category
+        const descriptionsEn = categoryTypes.map(ct => ct.description_en).filter(Boolean)
+        const descriptionsAr = categoryTypes.map(ct => ct.description_ar).filter(Boolean)
+
+        categoryMap[categorySlug] = {
+          name: category,
+          nameAr: getCategoryNameAr(category),
+          slug: categorySlug,
+          description: descriptionsEn.length > 0
+            ? descriptionsEn.join(' ')
+            : getFallbackDescription(category, 'en'),
+          descriptionAr: descriptionsAr.length > 0
+            ? descriptionsAr.join(' ')
+            : getFallbackDescription(category, 'ar'),
+          count: productCount,
+          icon: CATEGORY_ICONS[categorySlug],
+          category: category
+        }
+      }
+
+      setCategories(Object.values(categoryMap))
     } catch (error) {
       console.error('Error loading categories:', error)
-      setCategories(CATEGORIES_INFO.map(cat => ({ ...cat, count: 0 })))
+      // Fallback to basic categories
+      setCategories(MAIN_CATEGORIES.map(cat => ({
+        name: cat,
+        nameAr: getCategoryNameAr(cat),
+        slug: cat.toLowerCase(),
+        description: getFallbackDescription(cat, 'en'),
+        descriptionAr: getFallbackDescription(cat, 'ar'),
+        count: 0,
+        icon: CATEGORY_ICONS[cat.toLowerCase()],
+        category: cat
+      })))
     } finally {
       setLoading(false)
     }
+  }
+
+  function getCategoryNameAr(category: string): string {
+    const names: Record<string, string> = {
+      Persian: 'فارسي',
+      Afghan: 'أفغاني',
+      Indian: 'هندي',
+      Regional: 'إقليمي',
+    }
+    return names[category] || category
+  }
+
+  function getFallbackDescription(category: string, lang: 'en' | 'ar'): string {
+    const fallbacks: Record<string, Record<'en' | 'ar', string>> = {
+      Persian: {
+        en: 'Exquisite Persian carpets known for their intricate designs and superior craftsmanship',
+        ar: 'سجاد فارسي رائع معروف بتصاميمه المعقدة وحرفيته الممتازة',
+      },
+      Afghan: {
+        en: 'Traditional Afghan carpets featuring bold geometric patterns and rich colors',
+        ar: 'سجاد أفغاني تقليدي يتميز بأنماط هندسية جريئة وألوان غنية',
+      },
+      Indian: {
+        en: 'Beautiful Indian carpets with vibrant colors and detailed artistry',
+        ar: 'سجاد هندي جميل بألوان نابضة بالحياة وفن مفصل',
+      },
+      Regional: {
+        en: 'Unique regional carpets showcasing local traditions and techniques',
+        ar: 'سجاد إقليمي فريد يعرض التقاليد والتقنيات المحلية',
+      },
+    }
+    return fallbacks[category]?.[lang] || ''
   }
 
   if (loading) {

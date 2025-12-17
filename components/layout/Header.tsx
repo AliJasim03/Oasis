@@ -22,6 +22,7 @@ export function Header() {
             <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ''}`}>
               <Link href="/" onClick={() => setIsMenuOpen(false)}>{t.nav.home}</Link>
               <Link href="/products" onClick={() => setIsMenuOpen(false)}>{t.nav.products}</Link>
+              <Link href="/products/category" onClick={() => setIsMenuOpen(false)}>{t.nav.categories}</Link>
               <Link href="/about" onClick={() => setIsMenuOpen(false)}>{t.nav.about}</Link>
               <Link href="/contact" onClick={() => setIsMenuOpen(false)}>{t.nav.contact}</Link>
             </nav>

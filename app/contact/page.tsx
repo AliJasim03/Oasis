@@ -7,6 +7,7 @@ import { CarpetPattern } from '@/components/ui/CarpetPattern'
 import { Button } from '@/components/ui/Button'
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton'
 import { createInquiry } from '@/lib/supabase/queries'
+import { PHONE_NUMBER, EMAIL, LOCATION } from '@/lib/constants'
 import styles from './contact.module.scss'
 
 export default function ContactPage() {
@@ -141,17 +142,17 @@ export default function ContactPage() {
 
           <div className={styles.infoItem}>
             <h3>{t.contact.info.location}</h3>
-            <p>{t.contact.info.locationValue}</p>
+            <p>{LOCATION}</p>
           </div>
 
           <div className={styles.infoItem}>
             <h3>{t.contact.info.phone}</h3>
-            <p>{t.contact.info.phoneValue}</p>
+            <p>{PHONE_NUMBER}</p>
           </div>
 
           <div className={styles.infoItem}>
             <h3>{t.contact.info.email}</h3>
-            <p>{t.contact.info.emailValue}</p>
+            <p>{EMAIL}</p>
           </div>
 
           <div className={styles.infoItem}>

@@ -25,7 +25,7 @@ export default function ProductDetailPage() {
   async function loadProduct() {
     try {
       const data = await getProductBySlug(params.sku as string)
-      if (!data || !data.available) {
+      if (!data) {
         // Redirect to 404 if product doesn't exist or is not available
         window.location.href = '/404'
         return

@@ -3,6 +3,7 @@ export const translations = {
     nav: {
       home: 'Home',
       products: 'Products',
+      categories: 'Categories',
       about: 'About Us',
       contact: 'Contact',
     },
@@ -11,6 +12,41 @@ export const translations = {
       subtitle: 'Welcome to our premium collection of handmade carpets',
       description: 'Over 30 years of excellence in traditional carpet craftsmanship',
       cta: 'Explore Our Collection',
+      features: {
+        craftsmanship: {
+          title: 'Authentic Craftsmanship',
+          description: 'Each carpet is handwoven by skilled artisans using traditional techniques passed down through generations',
+        },
+        quality: {
+          title: 'Premium Quality',
+          description: 'Finest materials including premium wool, pure silk, and natural dyes for lasting beauty',
+        },
+        heritage: {
+          title: '30+ Years Heritage',
+          description: 'Trusted source for exquisite handmade carpets in Bahrain since 1994',
+        },
+      },
+      craft: {
+        title: 'The Art of Carpet Weaving',
+        steps: {
+          design: {
+            title: 'Design & Pattern',
+            description: 'Traditional motifs inspired by Persian, Afghan, and Indian heritage',
+          },
+          knotting: {
+            title: 'Hand Knotting',
+            description: 'Each knot tied individually by master weavers using ancient techniques',
+          },
+          dyeing: {
+            title: 'Natural Dyeing',
+            description: 'Colors extracted from plants and minerals for rich, lasting hues',
+          },
+          finishing: {
+            title: 'Finishing Touch',
+            description: 'Careful washing and trimming to reveal the carpet\'s true beauty',
+          },
+        },
+      },
     },
     about: {
       title: 'About Oasis Handmade Carpet Centre',
@@ -178,6 +214,7 @@ export const translations = {
     nav: {
       home: 'الرئيسية',
       products: 'المنتجات',
+      categories: 'الفئات',
       about: 'من نحن',
       contact: 'اتصل بنا',
     },
@@ -186,6 +223,41 @@ export const translations = {
       subtitle: 'مرحباً بكم في مجموعتنا المتميزة من السجاد اليدوي',
       description: 'أكثر من 30 عاماً من التميز في صناعة السجاد التقليدي',
       cta: 'استكشف مجموعتنا',
+      features: {
+        craftsmanship: {
+          title: 'حرفية أصيلة',
+          description: 'كل سجادة منسوجة يدوياً من قبل حرفيين ماهرين باستخدام تقنيات تقليدية توارثتها الأجيال',
+        },
+        quality: {
+          title: 'جودة متميزة',
+          description: 'أفضل المواد بما في ذلك الصوف الفاخر والحرير النقي والأصباغ الطبيعية للجمال الدائم',
+        },
+        heritage: {
+          title: 'تراث أكثر من 30 عاماً',
+          description: 'مصدر موثوق للسجاد اليدوي الفاخر في البحرين منذ عام 1994',
+        },
+      },
+      craft: {
+        title: 'فن نسج السجاد',
+        steps: {
+          design: {
+            title: 'التصميم والنقش',
+            description: 'زخارف تقليدية مستوحاة من التراث الفارسي والأفغاني والهندي',
+          },
+          knotting: {
+            title: 'العقد اليدوي',
+            description: 'كل عقدة مربوطة بشكل فردي من قبل نساجين خبراء باستخدام تقنيات قديمة',
+          },
+          dyeing: {
+            title: 'الصباغة الطبيعية',
+            description: 'ألوان مستخرجة من النباتات والمعادن للحصول على ألوان غنية ودائمة',
+          },
+          finishing: {
+            title: 'اللمسة النهائية',
+            description: 'غسل وتشذيب دقيق لإظهار الجمال الحقيقي للسجادة',
+          },
+        },
+      },
     },
     about: {
       title: 'حول مركز واحة السجاد اليدوي',

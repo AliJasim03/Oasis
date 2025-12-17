@@ -35,9 +35,9 @@ export default function Home() {
                   <div className={styles.featureIcon}>
                     <GiSewingString className={styles.iconSvg} />
                   </div>
-                  <h3 className={styles.featureTitle}>Authentic Craftsmanship</h3>
+                  <h3 className={styles.featureTitle}>{t.home.features.craftsmanship.title}</h3>
                   <p className={styles.featureDescription}>
-                    Each carpet is handwoven by skilled artisans using traditional techniques passed down through generations
+                    {t.home.features.craftsmanship.description}
                   </p>
                 </div>
               </ScrollReveal>
@@ -47,9 +47,9 @@ export default function Home() {
                   <div className={styles.featureIcon}>
                     <MdOutlineWorkspacePremium className={styles.iconSvg} />
                   </div>
-                  <h3 className={styles.featureTitle}>Premium Quality</h3>
+                  <h3 className={styles.featureTitle}>{t.home.features.quality.title}</h3>
                   <p className={styles.featureDescription}>
-                    Finest materials including premium wool, pure silk, and natural dyes for lasting beauty
+                    {t.home.features.quality.description}
                   </p>
                 </div>
               </ScrollReveal>
@@ -59,9 +59,9 @@ export default function Home() {
                   <div className={styles.featureIcon}>
                     <FaAward className={styles.iconSvg} />
                   </div>
-                  <h3 className={styles.featureTitle}>30+ Years Heritage</h3>
+                  <h3 className={styles.featureTitle}>{t.home.features.heritage.title}</h3>
                   <p className={styles.featureDescription}>
-                    Trusted source for exquisite handmade carpets in Bahrain since 1994
+                    {t.home.features.heritage.description}
                   </p>
                 </div>
               </ScrollReveal>
@@ -74,27 +74,27 @@ export default function Home() {
         <section className={styles.craftSection}>
           <div className="container">
             <CarpetPattern type="corner" position="top" opacity={0.1} />
-            <h2 className={styles.craftTitle}>The Art of Carpet Weaving</h2>
+            <h2 className={styles.craftTitle}>{t.home.craft.title}</h2>
             <div className={styles.weavingProcess}>
               <div className={styles.processStep}>
                 <div className={styles.stepNumber}>1</div>
-                <h3>Design & Pattern</h3>
-                <p>Traditional motifs inspired by Persian, Afghan, and Indian heritage</p>
+                <h3>{t.home.craft.steps.design.title}</h3>
+                <p>{t.home.craft.steps.design.description}</p>
               </div>
               <div className={styles.processStep}>
                 <div className={styles.stepNumber}>2</div>
-                <h3>Hand Knotting</h3>
-                <p>Each knot tied individually by master weavers using ancient techniques</p>
+                <h3>{t.home.craft.steps.knotting.title}</h3>
+                <p>{t.home.craft.steps.knotting.description}</p>
               </div>
               <div className={styles.processStep}>
                 <div className={styles.stepNumber}>3</div>
-                <h3>Natural Dyeing</h3>
-                <p>Colors extracted from plants and minerals for rich, lasting hues</p>
+                <h3>{t.home.craft.steps.dyeing.title}</h3>
+                <p>{t.home.craft.steps.dyeing.description}</p>
               </div>
               <div className={styles.processStep}>
                 <div className={styles.stepNumber}>4</div>
-                <h3>Finishing Touch</h3>
-                <p>Careful washing and trimming to reveal the carpet's true beauty</p>
+                <h3>{t.home.craft.steps.finishing.title}</h3>
+                <p>{t.home.craft.steps.finishing.description}</p>
               </div>
             </div>
             <CarpetPattern type="corner" position="bottom" opacity={0.1} />

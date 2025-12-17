@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useLanguage } from '@/lib/i18n/LanguageContext'
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa'
+import { WHATSAPP_NUMBER, PHONE_NUMBER, EMAIL, LOCATION } from '@/lib/constants'
 import styles from './Footer.module.scss'
 
 export function Footer() {
@@ -35,7 +36,7 @@ export function Footer() {
                   <FaTiktok />
                 </a>
                 <a
-                  href="https://wa.me/973XXXXXXXX"
+                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="WhatsApp"
@@ -70,9 +71,9 @@ export function Footer() {
           <div className={styles.footerSection}>
             <h4>{t.footer.contactUs}</h4>
             <ul>
-              <li>{t.contact.info.locationValue}</li>
-              <li>{t.contact.info.phone}: {t.contact.info.phoneValue}</li>
-              <li>{t.contact.info.email}: {t.contact.info.emailValue}</li>
+              <li>{t.contact.info.location}: {LOCATION}</li>
+              <li>{t.contact.info.phone}: {PHONE_NUMBER}</li>
+              <li>{t.contact.info.email}: {EMAIL}</li>
             </ul>
           </div>
         </div>

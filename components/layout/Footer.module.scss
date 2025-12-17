@@ -54,11 +54,11 @@
 
 .footerSection {
   opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 0.4s ease-out forwards;
 
   @for $i from 1 through 4 {
     &:nth-child(#{$i}) {
-      animation-delay: #{$i * 0.15}s;
+      animation-delay: #{$i * 0.05}s;
     }
   }
 
@@ -163,7 +163,7 @@
   border-top: 1px solid rgba($color-cream, 0.2);
   text-align: center;
   opacity: 0;
-  animation: fadeIn 1s ease-out 0.8s forwards;
+  animation: fadeIn 0.4s ease-out 0.3s forwards;
 
   p {
     margin: 0;
