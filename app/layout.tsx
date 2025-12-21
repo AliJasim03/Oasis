@@ -4,6 +4,7 @@ import { Footer } from '@/components/layout/Footer'
 import { WhatsAppButton } from '@/components/ui/WhatsAppButton'
 import { LanguageProvider } from '@/lib/i18n/LanguageContext'
 import { ConditionalLayout } from '@/components/layout/ConditionalLayout'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import '@/styles/globals.scss'
 
 export const metadata: Metadata = {
@@ -70,6 +71,7 @@ export default function RootLayout({
             {children}
           </ConditionalLayout>
         </LanguageProvider>
+        <SpeedInsights />
       </body>
     </html>
   )
