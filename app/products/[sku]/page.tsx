@@ -146,8 +146,8 @@ export default function ProductDetailPage() {
 
           <div className={styles.actions}>
             <WhatsAppButton message={inquiryMessage} />
-            <a href="/products" className="btn btn-outline">
-              {t.products.backToProducts}
+            <a href="/products/category" className="btn btn-outline">
+              {locale === 'ar' ? '→ العودة إلى الفئات' : '← Back to Categories'}
             </a>
           </div>
         </div>

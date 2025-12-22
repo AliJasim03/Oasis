@@ -5,127 +5,41 @@ import Link from 'next/link'
 import { useLanguage } from '@/lib/i18n/LanguageContext'
 import { ScrollReveal } from '@/components/ui/ScrollReveal'
 import { CarpetPattern } from '@/components/ui/CarpetPattern'
-import { getProducts, getCarpetTypes } from '@/lib/supabase/queries'
+import { getCarpetTypes } from '@/lib/supabase/queries'
 import type { CarpetType } from '@/lib/supabase/types'
 import styles from './categories.module.scss'
 
-interface CategoryData {
-  name: string
-  nameAr: string
-  slug: string
-  description: string
-  descriptionAr: string
-  count: number
-  icon: string
-  category: 'Persian' | 'Afghan' | 'Indian' | 'Regional'
+const CATEGORY_LABELS: Record<string, { en: string; ar: string }> = {
+  Persian: { en: 'Persian', ar: 'فارسي' },
+  Afghan: { en: 'Afghan', ar: 'أفغاني' },
+  Indian: { en: 'Indian', ar: 'هندي' },
+  Regional: { en: 'Regional', ar: 'إقليمي' },
 }
 
-const CATEGORY_ICONS: Record<string, string> = {
-  persian: '🇮🇷',
-  afghan: '🇦🇫',
-  indian: '🇮🇳',
-  regional: '🌍',
+// Truncate text to a certain number of characters
+const truncateText = (text: string, maxLength: number = 150): string => {
+  if (text.length <= maxLength) return text
+  return text.slice(0, maxLength).trim() + '...'
 }
-
-const MAIN_CATEGORIES: Array<'Persian' | 'Afghan' | 'Indian' | 'Regional'> = ['Persian', 'Afghan', 'Indian', 'Regional']
 
 export default function CategoriesPage() {
   const { t, locale } = useLanguage()
-  const [categories, setCategories] = useState<CategoryData[]>([])
+  const [carpetTypes, setCarpetTypes] = useState<CarpetType[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    loadCategoryCounts()
+    loadCarpetTypes()
   }, [])
 
-  const loadCategoryCounts = async () => {
+  const loadCarpetTypes = async () => {
     try {
-      // Get all products and carpet types
-      const [allProducts, allCarpetTypes] = await Promise.all([
-        getProducts(),
-        getCarpetTypes()
-      ])
-
-      // Group carpet types by category and aggregate descriptions
-      const categoryMap: Record<string, CategoryData> = {}
-
-      // Process each main category
-      const mainCategories = MAIN_CATEGORIES
-
-      for (const category of mainCategories) {
-        const categorySlug = category.toLowerCase()
-        const categoryTypes = allCarpetTypes.filter(ct => ct.category === category)
-        const productCount = allProducts.filter(p => p.category === category).length
-
-        // Combine descriptions from all carpet types in this category
-        const descriptionsEn = categoryTypes.map(ct => ct.description_en).filter(Boolean)
-        const descriptionsAr = categoryTypes.map(ct => ct.description_ar).filter(Boolean)
-
-        categoryMap[categorySlug] = {
-          name: category,
-          nameAr: getCategoryNameAr(category),
-          slug: categorySlug,
-          description: descriptionsEn.length > 0
-            ? descriptionsEn.join(' ')
-            : getFallbackDescription(category, 'en'),
-          descriptionAr: descriptionsAr.length > 0
-            ? descriptionsAr.join(' ')
-            : getFallbackDescription(category, 'ar'),
-          count: productCount,
-          icon: CATEGORY_ICONS[categorySlug],
-          category: category
-        }
-      }
-
-      setCategories(Object.values(categoryMap))
+      const data = await getCarpetTypes()
+      setCarpetTypes(data)
     } catch (error) {
-      console.error('Error loading categories:', error)
-      // Fallback to basic categories
-      setCategories(MAIN_CATEGORIES.map(cat => ({
-        name: cat,
-        nameAr: getCategoryNameAr(cat),
-        slug: cat.toLowerCase(),
-        description: getFallbackDescription(cat, 'en'),
-        descriptionAr: getFallbackDescription(cat, 'ar'),
-        count: 0,
-        icon: CATEGORY_ICONS[cat.toLowerCase()],
-        category: cat
-      })))
+      console.error('Error loading carpet types:', error)
     } finally {
       setLoading(false)
     }
-  }
-
-  function getCategoryNameAr(category: string): string {
-    const names: Record<string, string> = {
-      Persian: 'فارسي',
-      Afghan: 'أفغاني',
-      Indian: 'هندي',
-      Regional: 'إقليمي',
-    }
-    return names[category] || category
-  }
-
-  function getFallbackDescription(category: string, lang: 'en' | 'ar'): string {
-    const fallbacks: Record<string, Record<'en' | 'ar', string>> = {
-      Persian: {
-        en: 'Exquisite Persian carpets known for their intricate designs and superior craftsmanship',
-        ar: 'سجاد فارسي رائع معروف بتصاميمه المعقدة وحرفيته الممتازة',
-      },
-      Afghan: {
-        en: 'Traditional Afghan carpets featuring bold geometric patterns and rich colors',
-        ar: 'سجاد أفغاني تقليدي يتميز بأنماط هندسية جريئة وألوان غنية',
-      },
-      Indian: {
-        en: 'Beautiful Indian carpets with vibrant colors and detailed artistry',
-        ar: 'سجاد هندي جميل بألوان نابضة بالحياة وفن مفصل',
-      },
-      Regional: {
-        en: 'Unique regional carpets showcasing local traditions and techniques',
-        ar: 'سجاد إقليمي فريد يعرض التقاليد والتقنيات المحلية',
-      },
-    }
-    return fallbacks[category]?.[lang] || ''
   }
 
   if (loading) {
@@ -144,38 +58,45 @@ export default function CategoriesPage() {
 
         <ScrollReveal animation="fadeIn">
           <h1 className={styles.title}>
-            {t.products.category.title}
+            {locale === 'ar' ? 'أنواع السجاد' : 'Carpet Types'}
           </h1>
         </ScrollReveal>
 
         <ScrollReveal animation="slideUp" delay={0.1}>
           <p className={styles.subtitle}>
-            {t.products.category.exploreCollection}
+            {locale === 'ar' ? 'اكتشف أنواع السجاد الفاخرة المصنوعة يدويًا' : 'Discover our exquisite handmade carpet types'}
           </p>
         </ScrollReveal>
 
         <div className={styles.categoriesGrid}>
-          {categories.map((category, index) => (
-            <ScrollReveal key={category.slug} animation="scale" delay={index * 0.1}>
-              <Link href={`/products/category/${category.slug}`} className={styles.categoryCard}>
-                <div className={styles.cardHeader}>
-                  <h2>
-                    <span className={styles.cardIcon}>{category.icon}</span>
-                    {locale === 'ar' ? category.nameAr : category.name}
-                  </h2>
-                  <span className={styles.count}>
-                    {category.count} {locale === 'ar' ? 'منتج' : category.count === 1 ? 'product' : 'products'}
-                  </span>
-                </div>
-                <p className={styles.description}>
-                  {locale === 'ar' ? category.descriptionAr : category.description}
-                </p>
-                <div className={styles.viewLink}>
-                  {locale === 'ar' ? 'عرض المنتجات ←' : 'View Products →'}
-                </div>
-              </Link>
-            </ScrollReveal>
-          ))}
+          {carpetTypes.map((type, index) => {
+            const description = locale === 'ar' ? type.description_ar : type.description_en
+            const truncatedDesc = truncateText(description, 180)
+
+            return (
+              <ScrollReveal key={type.slug} animation="scale" delay={index * 0.1}>
+                <Link href={`/products/category/${type.category.toLowerCase()}`} className={styles.categoryCard}>
+                  <div className={styles.cardHeader}>
+                    <h2>{locale === 'ar' ? type.name_ar : type.name_en}</h2>
+                    <span className={styles.categoryBadge}>
+                      {locale === 'ar'
+                        ? CATEGORY_LABELS[type.category].ar
+                        : CATEGORY_LABELS[type.category].en}
+                    </span>
+                  </div>
+
+                  <p className={styles.description}>
+                    {truncatedDesc}
+                  </p>
+
+                  <div className={styles.viewLink}>
+                    <span>{locale === 'ar' ? 'عرض المنتجات' : 'View Products'}</span>
+                    <span className={styles.arrow}>{locale === 'ar' ? '←' : '→'}</span>
+                  </div>
+                </Link>
+              </ScrollReveal>
+            )
+          })}
         </div>
 
         <ScrollReveal animation="slideUp" delay={0.5}>

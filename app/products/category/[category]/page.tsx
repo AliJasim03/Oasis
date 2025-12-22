@@ -88,8 +88,8 @@ export default function CategoryPage() {
 
         <ScrollReveal animation="slideUp" delay={0.2}>
           <div className={styles.backLink}>
-            <a href="/products" className="btn btn-outline">
-              {locale === 'ar' ? '→' : '←'} {t.products.backToAllProducts}
+            <a href="/products/category" className="btn btn-outline">
+              {locale === 'ar' ? '→ العودة إلى الفئات' : '← Back to Categories'}
             </a>
           </div>
         </ScrollReveal>
