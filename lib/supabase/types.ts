@@ -17,6 +17,7 @@ export interface Database {
           description_en: string
           description_ar: string
           category: 'Persian' | 'Afghan' | 'Indian' | 'Regional'
+          carpet_type_id: string | null
           material: string
           origin: string
           price: number
@@ -34,6 +35,7 @@ export interface Database {
           description_en: string
           description_ar: string
           category: 'Persian' | 'Afghan' | 'Indian' | 'Regional'
+          carpet_type_id?: string | null
           material: string
           origin: string
           price: number
@@ -51,6 +53,7 @@ export interface Database {
           description_en?: string
           description_ar?: string
           category?: 'Persian' | 'Afghan' | 'Indian' | 'Regional'
+          carpet_type_id?: string | null
           material?: string
           origin?: string
           price?: number

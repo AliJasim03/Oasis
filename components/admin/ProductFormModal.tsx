@@ -11,7 +11,7 @@ interface ProductFormModalProps {
   isOpen: boolean
   onClose: () => void
   onSuccess: () => void
-  product?: Product | null
+  product?: (Product & { product_images?: { id: string; image_url: string; is_primary: boolean; alt_text: string }[] }) | null
 }
 
 export function ProductFormModal({ isOpen, onClose, onSuccess, product }: ProductFormModalProps) {
@@ -19,6 +19,7 @@ export function ProductFormModal({ isOpen, onClose, onSuccess, product }: Produc
   const [carpetTypes, setCarpetTypes] = useState<CarpetType[]>([])
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imagePreviews, setImagePreviews] = useState<string[]>([])
+  const [existingImages, setExistingImages] = useState<{ id: string; image_url: string; is_primary: boolean }[]>([])
   const [formData, setFormData] = useState({
     name_en: '',
     name_ar: '',
@@ -56,6 +57,15 @@ export function ProductFormModal({ isOpen, onClose, onSuccess, product }: Produc
         featured: product.featured,
         available: product.available,
       })
+      // Load existing images
+      if (product.product_images && product.product_images.length > 0) {
+        setExistingImages(product.product_images)
+      } else {
+        setExistingImages([])
+      }
+      // Clear new image uploads when editing
+      setImageFiles([])
+      setImagePreviews([])
     } else {
       // Reset form for new product
       setFormData({
@@ -75,6 +85,7 @@ export function ProductFormModal({ isOpen, onClose, onSuccess, product }: Produc
       })
       setImageFiles([])
       setImagePreviews([])
+      setExistingImages([])
     }
   }, [product])
 
@@ -301,6 +312,20 @@ export function ProductFormModal({ isOpen, onClose, onSuccess, product }: Produc
 
         <div className="form-group">
           <label htmlFor="images">Product Images</label>
+
+          {/* Show existing images when editing */}
+          {existingImages.length > 0 && (
+            <div className={styles.imagePreviews}>
+              <p className={styles.helper}>Current images:</p>
+              {existingImages.map((image) => (
+                <div key={image.id} className={styles.previewItem}>
+                  <img src={image.image_url} alt="Existing product image" />
+                  {image.is_primary && <span className={styles.primaryBadge}>Primary</span>}
+                </div>
+              ))}
+            </div>
+          )}
+
           <input
             type="file"
             id="images"
@@ -309,14 +334,20 @@ export function ProductFormModal({ isOpen, onClose, onSuccess, product }: Produc
             onChange={handleImageChange}
             className={styles.fileInput}
           />
-          <p className={styles.helper}>First image will be set as primary. Upload up to 5 images.</p>
+          <p className={styles.helper}>
+            {product
+              ? 'Upload new images to add to this product. First new image will become primary.'
+              : 'First image will be set as primary. Upload up to 5 images.'}
+          </p>
 
+          {/* Show new image previews */}
           {imagePreviews.length > 0 && (
             <div className={styles.imagePreviews}>
+              <p className={styles.helper}>New images to upload:</p>
               {imagePreviews.map((preview, index) => (
                 <div key={index} className={styles.previewItem}>
                   <img src={preview} alt={`Preview ${index + 1}`} />
-                  {index === 0 && <span className={styles.primaryBadge}>Primary</span>}
+                  {index === 0 && <span className={styles.primaryBadge}>Will be Primary</span>}
                 </div>
               ))}
             </div>

@@ -75,7 +75,7 @@ export default function CategoriesPage() {
 
             return (
               <ScrollReveal key={type.slug} animation="scale" delay={index * 0.1}>
-                <Link href={`/products/category/${type.category.toLowerCase()}`} className={styles.categoryCard}>
+                <Link href={`/products/carpet-type/${type.slug}`} className={styles.categoryCard}>
                   <div className={styles.cardHeader}>
                     <h2>{locale === 'ar' ? type.name_ar : type.name_en}</h2>
                     <span className={styles.categoryBadge}>

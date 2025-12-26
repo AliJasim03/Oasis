@@ -4,6 +4,7 @@ import type { Product, ProductImage, Category, Inquiry, CarpetType } from './typ
 // Products
 export async function getProducts(options?: {
   category?: string
+  carpet_type_id?: string
   featured?: boolean
   limit?: number
   offset?: number
@@ -15,6 +16,10 @@ export async function getProducts(options?: {
 
   if (options?.category) {
     query = query.eq('category', options.category)
+  }
+
+  if (options?.carpet_type_id) {
+    query = query.eq('carpet_type_id', options.carpet_type_id)
   }
 
   if (options?.featured) {
@@ -238,6 +243,17 @@ export async function getCarpetTypeById(id: string) {
     .from('carpet_types')
     .select('*')
     .eq('id', id)
+    .single()
+
+  if (error) throw error
+  return data
+}
+
+export async function getCarpetTypeBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from('carpet_types')
+    .select('*')
+    .eq('slug', slug)
     .single()
 
   if (error) throw error
