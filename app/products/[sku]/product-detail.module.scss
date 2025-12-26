@@ -90,9 +90,15 @@
   overflow: hidden;
   cursor: pointer;
   transition: all $transition-base;
+  border: 3px solid transparent;
 
   &:hover {
     transform: scale(1.05);
+  }
+
+  &.activeThumbnail {
+    border-color: $color-burgundy;
+    box-shadow: 0 0 0 2px rgba($color-burgundy, 0.2);
   }
 }
 

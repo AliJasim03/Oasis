@@ -17,6 +17,7 @@ export default function ProductDetailPage() {
   const { t, locale } = useLanguage()
   const [product, setProduct] = useState<ProductWithImages | null>(null)
   const [loading, setLoading] = useState(true)
+  const [selectedImage, setSelectedImage] = useState<ProductImage | null>(null)
 
   useEffect(() => {
     loadProduct()
@@ -31,6 +32,9 @@ export default function ProductDetailPage() {
         return
       }
       setProduct(data as ProductWithImages)
+      // Set initial selected image to primary or first image
+      const initialImage = data.product_images?.find((img: ProductImage) => img.is_primary) || data.product_images?.[0]
+      setSelectedImage(initialImage || null)
     } catch (error) {
       console.error('Error loading product:', error)
       window.location.href = '/404'
@@ -51,7 +55,6 @@ export default function ProductDetailPage() {
     return null
   }
 
-  const primaryImage = product.product_images?.find(img => img.is_primary) || product.product_images?.[0]
   const productName = locale === 'ar' ? product.name_ar : product.name_en
   const inquiryMessage = product.available
     ? `Hello, I'm interested in the ${product.name_en} (SKU: ${product.sku}). Could you please provide more information?`
@@ -61,11 +64,11 @@ export default function ProductDetailPage() {
     <div className="container py-3xl">
       <div className={styles.productDetail}>
         <div className={styles.imageSection}>
-          {primaryImage ? (
+          {selectedImage ? (
             <div className={`${styles.mainImage} ${!product.available ? styles.unavailableImage : ''}`}>
               <Image
-                src={primaryImage.image_url}
-                alt={primaryImage.alt_text}
+                src={selectedImage.image_url}
+                alt={selectedImage.alt_text}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className={styles.image}
@@ -84,7 +87,11 @@ export default function ProductDetailPage() {
           {product.product_images?.length > 1 && (
             <div className={styles.thumbnails}>
               {product.product_images.map((img) => (
-                <div key={img.id} className={styles.thumbnail}>
+                <div
+                  key={img.id}
+                  className={`${styles.thumbnail} ${selectedImage?.id === img.id ? styles.activeThumbnail : ''}`}
+                  onClick={() => setSelectedImage(img)}
+                >
                   <Image
                     src={img.image_url}
                     alt={img.alt_text}
