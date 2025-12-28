@@ -331,7 +331,7 @@ This project is proprietary and confidential.
 ## Support
 
 For support, contact:
-- Email: info@oasiscarpets.com
+- Email: Oasis_Carpet@yahoo.com
 - Phone: +973 XXXX XXXX
 
 ## Acknowledgments
